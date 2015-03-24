@@ -1,4 +1,15 @@
-Billards
-========
+Billiards
+=========
 
-A simple 2D, extremely portable billards game. Portability is the main priority, followed by accuracy in the physics simulation.
+A simple, 2D, extremely portable billiards game. Portability is it's main goal, followed by accuracy in the physics simulation.
+
+Portability is achieved by means of a abstraction layer.
+
+Good Coding Practices
+=====================
+
+&bull; Don't use globals (for KnightOS support)
+
+&bull; Use a generic main() function (for Rockbox support)
+
+&bull; Avoid floating-point math, used fixed-point instead (for performance reasons)

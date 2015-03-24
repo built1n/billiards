@@ -2,7 +2,7 @@
 
 #include "lib/xlcd.h"
 
-#include "billards.h"
+#include "billiards.h"
 #include "platform.h"
 
 void plat_init(void)
@@ -76,7 +76,7 @@ void plat_lcd_update(void)
 enum plugin_status plugin_start(const void *param)
 {
     (void) param;
-    int ret = billards_main();
+    int ret = billiards_main();
     if(ret == 0)
         return PLUGIN_OK;
     else
