@@ -10,9 +10,9 @@ SDLOBJ = platforms/sdl/sdl.o
 
 SDLFLAGS = -lm -lSDL -Iplatforms/sdl
 
-sdl: $(OBJ) $(SDLOBJ) Makefile
-	@echo "CC $<"
-	@$(CC) $(OBJ) $(SDLOBJ) -o billiards_sdl $(CFLAGS) $(SDLFLAGS)
+billiards-sdl: $(OBJ) $(SDLOBJ) Makefile
+	@echo "LD $@"
+	@$(CC) $(OBJ) $(SDLOBJ) -o billiards-sdl $(CFLAGS) $(SDLFLAGS)
 
 %.o: %.c Makefile
 	@echo "CC $<"

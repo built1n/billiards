@@ -1,2 +1,5 @@
 *.o
 *~
+billiards-sdl
+a.out
+gmon.out
