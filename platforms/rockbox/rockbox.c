@@ -1,9 +1,11 @@
 #include "plugin.h"
 
+#include "fixedpoint.h"
 #include "lib/xlcd.h"
 
-#include "billiards.h"
+#include "../../src/billiards.h"
 #include "platform.h"
+#include "rockbox.h"
 
 void plat_init(void)
 {
@@ -71,6 +73,50 @@ void plat_logf(const char *fmt, ...)
 void plat_lcd_update(void)
 {
     rb->lcd_update();
+}
+
+fixed_t plat_sin(fixed_t ang)
+{
+    return fp14_sin(FP_ROUND(ang));
+}
+
+fixed_t plat_cos(fixed_t ang)
+{
+    return fp14_cos(FP_ROUND(ang));
+}
+
+unsigned int plat_rand(void)
+{
+    return rb->rand();
+}
+
+void plat_srand(void)
+{
+    rb->srand(*rb->current_tick);
+}
+
+void plat_fillcircle(int cx, int cy, int r)
+{
+    int d = 3 - (r * 2);
+    int x = 0;
+    int y = r;
+    while(x <= y)
+    {
+        rb->lcd_hline(cx - x, cx + x, cy + y);
+        rb->lcd_hline(cx - x, cx + x, cy - y);
+        rb->lcd_hline(cx - y, cx + y, cy + x);
+        rb->lcd_hline(cx - y, cx + y, cy - x);
+        if(d < 0)
+        {
+            d += (x * 4) + 6;
+        }
+        else
+        {
+            d += ((x - y) * 4) + 10;
+            --y;
+        }
+        ++x;
+    }
 }
 
 enum plugin_status plugin_start(const void *param)
