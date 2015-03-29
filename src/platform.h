@@ -3,26 +3,32 @@
 
 /* provides a basic abstraction layer and some useful macros */
 
-#include "../platforms/rockbox/rockbox.h"
+#include "../platforms/sdl/sdl.h"
 
 /* some convenience macros */
 #undef ARRAYLEN
 #define ARRAYLEN(x) (sizeof(x)/sizeof(x[0]))
 
+#undef FIXED
 #define FIXED(x) ((x)<<FRACBITS)
 
+#undef RANDRANGE
 #define RANDRANGE(a, b) (plat_rand()%(b-a)+a)
 
 /* rounds x to nearest integer */
+#undef FP_ROUND
 #define FP_ROUND(x) (((x)+(1<<(FRACBITS-1)))>>FRACBITS)
 
-#define FLOAT_TO_FIXED(x) (FP_ROUND((x)*(1<<FRACBITS)))
+#undef FLOAT_TO_FIXED
+#define FLOAT_TO_FIXED(x) (x*(1<<FRACBITS))
 
 /* fixed_t is a fixed-point type with FRACBITS fractional bits */
 /* FRACBITS is platform-dependent */
 typedef long fixed_t;
 
 void plat_init(void);
+
+void plat_lcd_clear(void);
 
 void plat_set_background(unsigned);
 void plat_set_foreground(unsigned);
@@ -47,5 +53,8 @@ unsigned int plat_rand(void);
 
 /* seeds the RNG with a platform-specific value such as the time */
 void plat_srand(void);
+
+/* called at the end of each loop */
+void plat_yield(void);
 
 #endif

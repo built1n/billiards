@@ -11,6 +11,11 @@ void plat_init(void)
 {
 }
 
+void plat_lcd_clear(void)
+{
+    rb->lcd_clear_display();
+}
+
 void plat_set_background(unsigned col)
 {
     rb->lcd_set_background(col);
@@ -117,6 +122,11 @@ void plat_fillcircle(int cx, int cy, int r)
         }
         ++x;
     }
+}
+
+void plat_yield(void)
+{
+    rb->yield();
 }
 
 enum plugin_status plugin_start(const void *param)
