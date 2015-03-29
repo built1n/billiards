@@ -43,8 +43,12 @@ void plat_set_foreground(unsigned col)
     fgcol = col;
 }
 
+/* hline is optimized and vline is not because hline is used for the drawing of circles */
+
 void plat_hline(int x1, int x2, int y)
 {
+    if(y<0)
+        return;
     uint8_t *left = screen->pixels + screen->pitch * y;
     uint8_t *right = left + x2 * 4;
     left += x1 * 4;

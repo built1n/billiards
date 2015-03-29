@@ -4,7 +4,7 @@ OBJ = src/billiards.o \
       src/maths.o \
       src/ball.o \
 
-CFLAGS = -Isrc/ -O3 -std=gnu99
+CFLAGS = -Isrc/ -O3 -std=gnu99 -g
 
 SDLOBJ = platforms/sdl/sdl.o
 
@@ -17,3 +17,6 @@ billiards-sdl: $(OBJ) $(SDLOBJ) Makefile
 %.o: %.c Makefile
 	@echo "CC $<"
 	@$(CC) $(CFLAGS) $(SDLFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJ) $(SDLOBJ)

@@ -5,7 +5,7 @@
 
 int billiards_main(void);
 
-#define BALL_RADIUS 5
+#define BALL_RADIUS 20
 
 struct billiards_ctx_t {
     struct ball_t balls[10];

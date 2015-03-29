@@ -17,16 +17,18 @@ static void do_demo(void)
 
         memset(&balls[i].motion, 0, sizeof(struct vector_t));
         balls[i].motion.angle = FIXED(RANDRANGE(0, 360));
-        balls[i].motion.mag = FIXED(1);
+        balls[i].motion.mag = FP_DIV(FIXED(3), FIXED(3));
 
         vect_resolve(&balls[i].motion);
     }
     while(1)
     {
+        struct ball_t old[ARRAYLEN(balls)];
+        memcpy(old, balls, sizeof(balls));
         plat_lcd_clear();
         for(unsigned int i = 0; i < ARRAYLEN(balls); ++i)
         {
-            ball_step(balls+i);
+            ball_step(balls, i, old, ARRAYLEN(balls));
             plat_set_foreground(balls[i].color);
             plat_fillcircle(balls[i].x >> FRACBITS, balls[i].y >> FRACBITS, balls[i].radius);
         }
