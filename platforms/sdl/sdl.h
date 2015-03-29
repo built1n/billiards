@@ -18,3 +18,6 @@ unsigned sdlplat_rgbpack(uint8_t, uint8_t, uint8_t);
 
 #define FP_MUL(x,y) (long)((((long long)(x)) * ((long long)(y))) >> FRACBITS)
 #define FP_DIV(x,y) (long)((((long long)(x)) << FRACBITS) / ((long long)(y)))
+
+/* disabled to enhance performance */
+//#define PLAT_WANTS_YIELD

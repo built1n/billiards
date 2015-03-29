@@ -12,3 +12,5 @@
 #define FRACBITS 14
 #define FP_MUL(x,y) (fp_mul(x,y,FRACBITS))
 #define FP_DIV(x,y) (fp_div(x,y,FRACBITS))
+
+#define PLAT_WANTS_YIELD

@@ -21,7 +21,7 @@ static void do_demo(void)
 
         vect_resolve(&balls[i].motion);
     }
-    for(int f=0;f<1000;++f)
+    while(1)
     {
         plat_lcd_clear();
         for(unsigned int i = 0; i < ARRAYLEN(balls); ++i)
@@ -31,6 +31,9 @@ static void do_demo(void)
             plat_fillcircle(balls[i].x >> FRACBITS, balls[i].y >> FRACBITS, balls[i].radius);
         }
         plat_lcd_update();
+#ifdef PLAT_WANTS_YIELD
+        plat_yield();
+#endif
     }
 }
 

@@ -54,7 +54,9 @@ unsigned int plat_rand(void);
 /* seeds the RNG with a platform-specific value such as the time */
 void plat_srand(void);
 
-/* called at the end of each loop */
+/* called at the end of each loop if the platform requests it */
+#ifdef PLAT_WANTS_YIELD
 void plat_yield(void);
+#endif
 
 #endif
