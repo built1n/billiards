@@ -3,7 +3,11 @@
 
 /* provides a basic abstraction layer and some useful macros */
 
+#ifdef ROCKBOX
+#include "../platforms/rockbox/rockbox.h"
+#else
 #include "../platforms/sdl/sdl.h"
+#endif
 
 /* some convenience macros */
 #undef ARRAYLEN

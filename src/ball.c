@@ -23,7 +23,8 @@ void ball_step(struct ball_t *balls, int idx, struct ball_t *old, int len)
         balls[idx].y += 2*balls[idx].motion.ycomp;
     }
 
-    //balls[idx].motion.mag = FP_MUL(balls[idx].motion.mag, FP_DIV(FIXED(50), FIXED(100)));
+    balls[idx].motion.mag = FP_MUL(balls[idx].motion.mag, FP_DIV(FIXED(999), FIXED(1000)));
+    vect_resolve(&balls[idx].motion);
 
     /* now check if it collided with any balls */
     /* loop over every ball but the current one */
@@ -32,7 +33,7 @@ void ball_step(struct ball_t *balls, int idx, struct ball_t *old, int len)
         fixed_t dx, dy;
         dx = balls[idx].x - old[i].x;
         dy = balls[idx].y - old[i].y;
-        if(FP_MUL(dx, dx) + FP_MUL(dy, dy) < FIXED(2 * balls[idx].radius * balls[idx].radius))
+        if(FP_MUL(dx, dx) + FP_MUL(dy, dy) < FIXED((2 * balls[idx].radius) * (2 * balls[idx].radius)))
         {
             //plat_logf("ball-to-ball collide %d to %d", idx, i);
             balls[idx].color = LCD_RGBPACK(RANDRANGE(0,255),
@@ -46,7 +47,7 @@ void ball_step(struct ball_t *balls, int idx, struct ball_t *old, int len)
         fixed_t dx, dy;
         dx = balls[idx].x - old[i].x;
         dy = balls[idx].y - old[i].y;
-        if(FP_MUL(dx, dx) + FP_MUL(dy, dy) < FIXED(2 * balls[idx].radius * balls[idx].radius))
+        if(FP_MUL(dx, dx) + FP_MUL(dy, dy) < FIXED((2 * balls[idx].radius) * (2 * balls[idx].radius)))
         {
             //plat_logf("ball-to-ball collide %d to %d", idx, i);
             balls[idx].color = LCD_RGBPACK(RANDRANGE(0,255),

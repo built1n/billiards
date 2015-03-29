@@ -1,6 +1,8 @@
 #include "plugin.h"
 
 #include "fixedpoint.h"
+#include "lib/pluginlib_actions.h"
+#include "lib/pluginlib_exit.h"
 #include "lib/xlcd.h"
 
 #include "../../src/billiards.h"
@@ -127,6 +129,16 @@ void plat_fillcircle(int cx, int cy, int r)
 void plat_yield(void)
 {
     rb->yield();
+    static const struct button_mapping *plugin_contexts[] = { pla_main_ctx };
+    int button;
+    switch(button = pluginlib_getaction(0, plugin_contexts, ARRAYLEN(plugin_contexts)))
+    {
+    case PLA_EXIT:
+        exit(PLUGIN_OK);
+        break;
+    default:
+        exit_on_usb(button);
+    }
 }
 
 enum plugin_status plugin_start(const void *param)
