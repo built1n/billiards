@@ -14,6 +14,8 @@ struct ball_t {
 };
 
 /* updates the ball at balls[idx] while checking for collisions with balls in old[] */
-void ball_step(struct ball_t *balls, int idx, struct ball_t *old, int len);
+void ball_step(struct ball_t *balls, int idx);
+
+void ball_check_collisions(struct ball_t *balls, int len);
 
 #endif

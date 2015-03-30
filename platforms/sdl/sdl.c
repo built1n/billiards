@@ -15,7 +15,7 @@ static uint32_t fgcol, bgcol;
 
 void plat_init(void)
 {
-    plat_logf("SDL init.");
+    plat_logf("SDL init");
     SDL_Init(SDL_INIT_VIDEO);
     screen = SDL_SetVideoMode(LCD_WIDTH, LCD_HEIGHT, 32, SDL_HWSURFACE | SDL_HWACCEL);
 
@@ -181,6 +181,5 @@ void plat_yield(void)
 
 int main(int argc, char* argv[])
 {
-    plat_logf("SDL platform started.");
     return billiards_main();
 }

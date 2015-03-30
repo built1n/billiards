@@ -28,10 +28,17 @@ static void do_demo(void)
         plat_lcd_clear();
         for(unsigned int i = 0; i < ARRAYLEN(balls); ++i)
         {
-            ball_step(balls, i, old, ARRAYLEN(balls));
+            ball_step(balls, i);
+        }
+
+        ball_check_collisions(balls, ARRAYLEN(balls));
+
+        for(unsigned int i = 0; i < ARRAYLEN(balls); ++i)
+        {
             plat_set_foreground(balls[i].color);
             plat_fillcircle(balls[i].x >> FRACBITS, balls[i].y >> FRACBITS, balls[i].radius);
         }
+
         plat_lcd_update();
 #ifdef PLAT_WANTS_YIELD
         plat_yield();
