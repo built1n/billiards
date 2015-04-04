@@ -4,7 +4,7 @@
 
 static void do_demo(void)
 {
-    struct ball_t balls[10];
+    struct ball_t balls[3];
     for(unsigned int i = 0; i < ARRAYLEN(balls); ++i)
     {
         balls[i].x = FIXED(RANDRANGE(BALL_RADIUS, LCD_WIDTH-BALL_RADIUS));
@@ -28,7 +28,7 @@ static void do_demo(void)
         plat_lcd_clear();
         for(unsigned int i = 0; i < ARRAYLEN(balls); ++i)
         {
-            ball_step(balls, i);
+            ball_step(balls+i);
         }
 
         ball_check_collisions(balls, ARRAYLEN(balls));

@@ -1,26 +1,28 @@
 #include "ball.h"
 #include "maths.h"
 
-void ball_step(struct ball_t *balls, int idx)
+void ball_step(struct ball_t *ball)
 {
     /* move the specified ball */
-    balls[idx].x += balls[idx].motion.xcomp;
-    balls[idx].y += balls[idx].motion.ycomp;
+    ball->x += ball->motion.xcomp;
+    ball->y += ball->motion.ycomp;
 
     /* check if it collided with a wall */
-    if(balls[idx].x <= FIXED(balls[idx].radius) || balls[idx].x >= FIXED(LCD_WIDTH - balls[idx].radius))
+    if(ball->x <= FIXED(ball->radius) || ball->x >= FIXED(LCD_WIDTH - ball->radius))
     {
-        balls[idx].motion.angle = (FIXED(180) - balls[idx].motion.angle) % FIXED(360);
-        vect_resolve(&balls[idx].motion);
-        balls[idx].x += 2*balls[idx].motion.xcomp;
-        balls[idx].y += 2*balls[idx].motion.ycomp;
+        ball->motion.angle = (FIXED(180) - ball->motion.angle) % FIXED(360);
+        //ball->motion.mag = FP_MUL(ball->motion.mag, BALL_ELASTICITY);
+        vect_resolve(&ball->motion);
+        ball->x += FP_MUL(2, ball->motion.xcomp);
+        ball->y += FP_MUL(2, ball->motion.ycomp);
     }
-    if(balls[idx].y <= FIXED(balls[idx].radius) || balls[idx].y >= FIXED(LCD_HEIGHT - balls[idx].radius))
+    if(ball->y <= FIXED(ball->radius) || ball->y >= FIXED(LCD_HEIGHT - ball->radius))
     {
-        balls[idx].motion.angle = (FIXED(360) - balls[idx].motion.angle) % FIXED(360);
-        vect_resolve(&balls[idx].motion);
-        balls[idx].x += 2*balls[idx].motion.xcomp;
-        balls[idx].y += 2*balls[idx].motion.ycomp;
+        ball->motion.angle = (FIXED(360) - ball->motion.angle) % FIXED(360);
+        //ball->motion.mag = FP_MUL(ball->motion.mag, BALL_ELASTICITY);
+        vect_resolve(&ball->motion);
+        ball->x += FP_MUL(2, ball->motion.xcomp);
+        ball->y += FP_MUL(2, ball->motion.ycomp);
     }
 
     /* apply friction, currently very primitive */
@@ -59,7 +61,7 @@ void ball_step(struct ball_t *balls, int idx)
     */
 }
 
-static void docollide(struct ball_t *b1, struct ball_t *b2)
+static inline void docollide(struct ball_t *b1, struct ball_t *b2)
 {
     fixed_t x1 = b1->x, y1 = b1->y;
     fixed_t x2 = b2->x, y2 = b2->y;
@@ -76,12 +78,9 @@ void ball_check_collisions(struct ball_t *balls, int len)
 {
     for(unsigned int i = 0; i < len; ++i)
     {
-        for(unsigned int j = 0; j < i; ++j)
-        {
-            docollide(balls+i, balls+j);
-        }
         for(unsigned int j = i + 1; j < len; ++j)
         {
+            plat_logf("check collide between %d and %d", i, j);
             docollide(balls+i, balls+j);
         }
     }
