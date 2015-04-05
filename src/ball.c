@@ -26,39 +26,8 @@ void ball_step(struct ball_t *ball)
     }
 
     /* apply friction, currently very primitive */
-    //balls[idx].motion.mag = FP_MUL(balls[idx].motion.mag, FP_DIV(FIXED(999), FIXED(1000)));
-    //vect_resolve(&balls[idx].motion);
-
-    /* now check if it collided with any balls */
-    /* loop over every ball but the current one */
-    /*
-    for(int i = 0; i < idx; ++i)
-    {
-        fixed_t dx, dy;
-        dx = balls[idx].x - old[i].x;
-        dy = balls[idx].y - old[i].y;
-        if(FP_MUL(dx, dx) + FP_MUL(dy, dy) < FIXED((2 * balls[idx].radius) * (2 * balls[idx].radius)))
-        {
-            plat_logf("ball-to-ball collide %d to %d", idx, i);
-            balls[idx].color = LCD_RGBPACK(RANDRANGE(0,255),
-                                           RANDRANGE(0,255),
-                                           RANDRANGE(0,255));
-        }
-    }
-    for(int i = idx + 1; i < len; ++i)
-    {
-        fixed_t dx, dy;
-        dx = balls[idx].x - old[i].x;
-        dy = balls[idx].y - old[i].y;
-        if(FP_MUL(dx, dx) + FP_MUL(dy, dy) < FIXED((2 * balls[idx].radius) * (2 * balls[idx].radius)))
-        {
-            /plat_logf("ball-to-ball collide %d to %d", idx, i);
-            balls[idx].color = LCD_RGBPACK(RANDRANGE(0,255),
-                                           RANDRANGE(0,255),
-                                           RANDRANGE(0,255));
-        }
-    }
-    */
+    //ball->motion.mag = FP_MUL(ball->motion.mag, FP_DIV(FIXED(999), FIXED(1000)));
+    //vect_resolve(&ball->motion);
 }
 
 static inline void docollide(struct ball_t *b1, struct ball_t *b2)
@@ -71,6 +40,13 @@ static inline void docollide(struct ball_t *b1, struct ball_t *b2)
         b1->color = LCD_RGBPACK(RANDRANGE(0,255),
                                 RANDRANGE(0,255),
                                 RANDRANGE(0,255));
+        fixed_t dist = plat_sqrt(dist_sqr);
+        //plat_logf("collide distance: %f", (double) dist / (1<<FRACBITS));
+        b1->motion.angle += FIXED(180);
+        vect_resolve(&b1->motion);
+        b2->motion.angle += FIXED(180);
+        vect_resolve(&b2->motion);
+
     }
 }
 
@@ -80,7 +56,6 @@ void ball_check_collisions(struct ball_t *balls, int len)
     {
         for(unsigned int j = i + 1; j < len; ++j)
         {
-            plat_logf("check collide between %d and %d", i, j);
             docollide(balls+i, balls+j);
         }
     }

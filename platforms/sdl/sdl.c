@@ -112,20 +112,26 @@ void plat_lcd_update(void)
     SDL_Flip(screen);
 }
 
-#define PI 3.1415926535897932f
+#define PI 3.141592653589793238462643383279502884197169399375105820974944592317816406286208998628
 
 fixed_t plat_sin(fixed_t ang)
 {
-    double d = (double)ang / (1<<FRACBITS);
+    double d = (double) ang / (1<<FRACBITS);
     d *= PI/180;
     return sin(d) * (1<<FRACBITS);
 }
 
 fixed_t plat_cos(fixed_t ang)
 {
-    double d = (double)ang / (1<<FRACBITS);
+    double d = (double) ang / (1<<FRACBITS);
     d *= PI/180;
     return cos(d) * (1<<FRACBITS);
+}
+
+fixed_t plat_sqrt(fixed_t n)
+{
+    double d = (double) n / (1<<FRACBITS);
+    return sqrt(d) * (1<<FRACBITS);
 }
 
 unsigned int plat_rand(void)

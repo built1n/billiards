@@ -53,6 +53,8 @@ void plat_lcd_update(void);
 fixed_t plat_sin(fixed_t);
 fixed_t plat_cos(fixed_t);
 
+fixed_t plat_sqrt(fixed_t);
+
 unsigned int plat_rand(void);
 
 /* seeds the RNG with a platform-specific value such as the time */

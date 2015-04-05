@@ -92,6 +92,11 @@ fixed_t plat_cos(fixed_t ang)
     return fp14_cos(FP_ROUND(ang));
 }
 
+fixed_t plat_sqrt(fixed_t n)
+{
+    return fp_sqrt(n, FRACBITS);
+}
+
 unsigned int plat_rand(void)
 {
     return rb->rand();
