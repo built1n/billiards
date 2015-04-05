@@ -26,4 +26,4 @@ Current Status
 
 Wall-to-ball collision/handling works.
 
-Ball-to-ball collision <b>detection</b> works.
+Ball-to-ball collision detection works, resolution is a WIP.
